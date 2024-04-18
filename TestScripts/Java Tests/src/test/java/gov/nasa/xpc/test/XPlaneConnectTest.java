@@ -4,8 +4,8 @@ import gov.nasa.xpc.ViewType;
 import gov.nasa.xpc.WaypointOp;
 import gov.nasa.xpc.XPlaneConnect;
 
-import static org.junit.Assert.*;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.net.SocketException;
@@ -104,18 +104,10 @@ public class XPlaneConnectTest
         }
     }
 
-    @Test(expected = UnknownHostException.class)
+    @Test
     public void constructorTest_InvalidHost() throws UnknownHostException
     {
-        try(XPlaneConnect xpc = new XPlaneConnect("notarealhost", 49009, 49007))
-        {
-
-        }
-        catch (SocketException ex)
-        {
-            fail();
-        }
-        fail();
+        assertThrows(UnknownHostException.class, () -> new XPlaneConnect("notarealhost", 49009, 49007));
     }
 
     @Test
@@ -146,58 +138,53 @@ public class XPlaneConnectTest
         }
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testRequestDREFs_NullArgument() throws IOException
     {
         try(XPlaneConnect xpc = new XPlaneConnect())
         {
-            xpc.getDREFs(null);
-            fail();
+            assertThrows(IllegalArgumentException.class, () -> xpc.getDREFs(null));
         }
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testRequestDREFs_EmptyArgument() throws IOException
     {
         String[] drefs = new String[0];
         try(XPlaneConnect xpc = new XPlaneConnect())
         {
-            xpc.getDREFs(drefs);
-            fail();
+            assertThrows(IllegalArgumentException.class, () -> xpc.getDREFs(drefs));
         }
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testRequestDREFs_TooManyDREFs() throws IOException
     {
         String[] drefs = new String[300];
         try(XPlaneConnect xpc = new XPlaneConnect())
         {
-            xpc.getDREFs(drefs);
-            fail();
+            assertThrows(IllegalArgumentException.class, () -> xpc.getDREFs(drefs));
         }
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testRequestDREFs_DREFTooLong() throws IOException
     {
         String longDREF = "sim/cockpit/switches/i/am/a/very/long/fake/dref/that/is/over/255/characters/./which/means/that/my/length/cant/be/encoded/in/the/single/byte/allocated/by/the/message/format/,/so/i/should/cause/an/exception/instead/./i/am/still/not/long/enough/./almost/there";
         String[] drefs = new String[]{longDREF};
         try(XPlaneConnect xpc = new XPlaneConnect())
         {
-            xpc.getDREFs(drefs);
-            fail();
+            assertThrows(IllegalArgumentException.class, () -> xpc.getDREFs(drefs));
         }
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testRequestDREF_DREFEmpty() throws IOException
     {
         String dref = "";
         try(XPlaneConnect xpc = new XPlaneConnect())
         {
-            xpc.getDREF(dref);
-            fail();
+            assertThrows(IllegalArgumentException.class, () -> xpc.getDREF(dref));
         }
     }
 
@@ -361,36 +348,33 @@ public class XPlaneConnectTest
         }
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSendDREF_NullDREF() throws IOException
     {
         try(XPlaneConnect xpc = new XPlaneConnect())
         {
-            xpc.sendDREF(null, 0);
-            fail();
+            assertThrows(IllegalArgumentException.class, () -> xpc.sendDREF(null, 0));
         }
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSendDREF_NullValue() throws IOException
     {
         String dref = "sim/cockpit/switches/gear_handle_status";
 
         try(XPlaneConnect xpc = new XPlaneConnect())
         {
-            xpc.sendDREF(dref, null);
-            fail();
+            assertThrows(IllegalArgumentException.class, () -> xpc.sendDREF(dref, null));
         }
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSendDREF_EmptyValue() throws IOException
     {
         String dref = "sim/cockpit/switches/gear_handle_status";
         try(XPlaneConnect xpc = new XPlaneConnect())
         {
-            xpc.sendDREF(dref, new float[0]);
-            fail();
+            assertThrows(IllegalArgumentException.class, () -> xpc.sendDREF(dref, new float[0]));
         }
     }
 
@@ -408,25 +392,23 @@ public class XPlaneConnectTest
         }
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSendDREF_DREFTooLong() throws IOException
     {
         String dref = "sim/cockpit/switches/i/am/a/very/long/fake/dref/that/is/over/255/characters/./which/means/that/my/length/cant/be/encoded/in/the/single/byte/allocated/by/the/message/format/,/so/i/should/cause/an/exception/instead/./i/am/still/not/long/enough/./almost/there";
         try(XPlaneConnect xpc = new XPlaneConnect())
         {
-            xpc.sendDREF(dref, 0);
-            fail();
+            assertThrows(IllegalArgumentException.class, () -> xpc.sendDREF(dref, 0));
         }
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSendDREF_DREFEmpty() throws IOException
     {
         String dref = "";
         try(XPlaneConnect xpc = new XPlaneConnect())
         {
-            xpc.sendDREF(dref, 0);
-            fail();
+            assertThrows(IllegalArgumentException.class, () -> xpc.sendDREF(dref, 0));
         }
     }
 
@@ -519,22 +501,22 @@ public class XPlaneConnectTest
 
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSendCTRL_NullCtrl() throws IOException
     {
         try(XPlaneConnect xpc = new XPlaneConnect())
         {
-            xpc.sendCTRL(null);
+            assertThrows(IllegalArgumentException.class, () -> xpc.sendCTRL(null));
         }
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSendCTRL_LongCtrl() throws IOException
     {
         float[] ctrl = new float[] {0, 0, 1, 0.8F, 0, 1, 0, -998};
         try(XPlaneConnect xpc = new XPlaneConnect())
         {
-            xpc.sendCTRL(ctrl);
+            assertThrows(IllegalArgumentException.class, () -> xpc.sendCTRL(ctrl));
         }
     }
 
@@ -573,42 +555,42 @@ public class XPlaneConnectTest
         }
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSendPOSI_NullCtrl() throws IOException
     {
         try(XPlaneConnect xpc = new XPlaneConnect())
         {
-            xpc.sendPOSI(null);
+            assertThrows(IllegalArgumentException.class, () -> xpc.sendPOSI(null));
         }
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSendPOSI_LongCtrl() throws IOException
     {
         double[] posi = new double[] {37.524, -122.06899, 2500, 0, 0, 0, 1, -998};
         try(XPlaneConnect xpc = new XPlaneConnect())
         {
-            xpc.sendPOSI(posi);
+            assertThrows(IllegalArgumentException.class, () -> xpc.sendPOSI(posi));
         }
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSendPOSI_NegativeAircraftNum() throws IOException
     {
         double[] posi = new double[] {37.524, -122.06899, 2500, 0, 0, 0, 1, -998};
         try(XPlaneConnect xpc = new XPlaneConnect())
         {
-            xpc.sendPOSI(posi, -1);
+            assertThrows(IllegalArgumentException.class, () -> xpc.sendPOSI(posi, -1));
         }
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSendPOSI_LargeAircraftNum() throws IOException
     {
         double[] posi = new double[] {37.524, -122.06899, 2500, 0, 0, 0, 1, -998};
         try(XPlaneConnect xpc = new XPlaneConnect())
         {
-            xpc.sendPOSI(posi, 300);
+            assertThrows(IllegalArgumentException.class, () -> xpc.sendPOSI(posi, 300));
         }
     }
 
@@ -625,25 +607,23 @@ public class XPlaneConnectTest
         }
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSendData_NullData() throws IOException
     {
         try(XPlaneConnect xpc = new XPlaneConnect())
         {
-            xpc.sendDATA(null);
+            assertThrows(IllegalArgumentException.class, () -> xpc.sendDATA(null));
         }
-        fail();
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSendData_InvalidData() throws IOException
     {
         float[][] data = {{25,0.8F,-988,-988,-988,-988,-988,-988,-988,-988}};
         try(XPlaneConnect xpc = new XPlaneConnect())
         {
-            xpc.sendDATA(data);
+            assertThrows(IllegalArgumentException.class, () -> xpc.sendDATA(data));
         }
-        fail();
     }
 
     @Test
@@ -659,23 +639,21 @@ public class XPlaneConnectTest
         }
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSetCONN_NegativePort() throws IOException
     {
         try(XPlaneConnect xpc = new XPlaneConnect())
         {
-            xpc.setCONN(-1);
-            fail();
+            assertThrows(IllegalArgumentException.class, () -> xpc.setCONN(-1));
         }
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSetCONN_LargePort() throws IOException
     {
         try(XPlaneConnect xpc = new XPlaneConnect())
         {
-            xpc.setCONN(65536);
-            fail();
+            assertThrows(IllegalArgumentException.class, () -> xpc.setCONN(65536));
         }
     }
 

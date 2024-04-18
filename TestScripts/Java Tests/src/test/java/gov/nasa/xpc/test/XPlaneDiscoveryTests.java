@@ -1,11 +1,11 @@
 package gov.nasa.xpc.test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import gov.nasa.xpc.discovery.Beacon;
 import gov.nasa.xpc.discovery.BeaconParser;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -16,7 +16,7 @@ public class XPlaneDiscoveryTests {
     private BeaconParser parser;
     private DatagramPacket packet;
 
-    @Before
+    @BeforeEach
     public void setup() {
         parser = new BeaconParser();
         byte[] bytes = HexHelper.decodeHexString("4245434E0071BFFC2B0000312E332D72632E310000000000000000");
