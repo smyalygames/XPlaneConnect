@@ -1,14 +1,13 @@
-rootProject.name = "xpc-parent"
-include(":continuous-operation")
-include(":playback-example")
-include(":discovery-example")
+rootProject.name = "xpc"
+
 include(":xpc")
-include(":xpc-examples")
-include(":basic-operation")
 include(":tests")
-project(":continuous-operation").projectDir = file("examples/continuous-operation")
-project(":playback-example").projectDir = file("examples/playback")
-project(":discovery-example").projectDir = file("examples/discovery")
-project(":xpc-examples").projectDir = file("examples")
-project(":basic-operation").projectDir = file("examples/basic-operation")
+include(":examples")
+include(":examples:basic-operation")
+include(":examples:continuous-operation")
+include(":examples:discovery")
+include(":examples:playback")
+
+project(":xpc").projectDir = file("xpc")
 project(":tests").projectDir = file("$rootDir/../TestScripts/Java Tests")
+project(":examples").projectDir = file("examples")

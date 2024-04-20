@@ -14,7 +14,7 @@ repositories {
     }
 }
 
-group = "gov.nasa"
+group = "gov.nasa.xpc"
 version = "1.4.0-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
