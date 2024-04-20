@@ -41,6 +41,19 @@ Thumbs.db
 *.rc
 *.idb
 
+# Gradle Files #
+################
+.gradle
+**/build/
+!src/**/build/
+gradle-app.setting
+!gradle-wrapper.jar
+!gradle-wrapper.properties
+.gradletasknamecache
+# Eclipse Gradle plugin generated files
+.project
+.classpath
+
 # VS Files #
 #################
 bin/
