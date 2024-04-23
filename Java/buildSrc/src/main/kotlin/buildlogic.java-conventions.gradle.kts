@@ -22,7 +22,7 @@ publishing {
     repositories {
         maven {
             name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/smyalygames/XPlaneConnect")
+            url = uri("https://maven.pkg.github.com/nasa/XPlaneConnect")
             credentials {
                 username = project.findProperty("gpr.user") as String? ?:
                     System.getenv("GITHUB_ACTOR")
